@@ -3,6 +3,7 @@ package com.paulobrusch.workshopmongo.config;
 import com.paulobrusch.workshopmongo.domain.Post;
 import com.paulobrusch.workshopmongo.domain.User;
 import com.paulobrusch.workshopmongo.dto.AuthorDTO;
+import com.paulobrusch.workshopmongo.dto.CommentDTO;
 import com.paulobrusch.workshopmongo.repository.PostRepository;
 import com.paulobrusch.workshopmongo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,12 @@ public class Instantiation implements CommandLineRunner {
         Post post1 = new Post(null, sdf.parse("21/03/2018"), "Let's travel!","I'm going to travel to São Paulo. Hugs", new AuthorDTO(maria));
         Post post2 = new Post(null, sdf.parse("23/03/2018"), "Good morning","I woke up very happy today!", new AuthorDTO(maria));
 
+        CommentDTO c1 = new CommentDTO("Have a good trip!", sdf.parse("21/03/2018"), new AuthorDTO(alex));
+        CommentDTO c2 = new CommentDTO("Enjoy!", sdf.parse("22/03/2018"), new AuthorDTO(bob));
+        CommentDTO c3 = new CommentDTO("Have a great day!", sdf.parse("23/03/2018"), new AuthorDTO(alex));
+
+        post1.getComments().addAll(Arrays.asList(c1, c2));
+        post2.getComments().addAll(Arrays.asList(c3));
 
         postRepository.saveAll(Arrays.asList(post1, post2));
 
